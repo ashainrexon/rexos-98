@@ -1,65 +1,120 @@
-import Image from "next/image";
+// app/page.tsx
+'use client';
+import CrtOverlay from '@/components/effects/CrtOverlay';
+import Taskbar from '@/components/taskbar/Taskbar';
+import AppWindow from '@/components/windows/AppWindow';
+import DesktopShortcuts from '@/components/desktop/DesktopShortcuts';
+import SettingsApp from '@/components/apps/SettingsApp';
+import TaskManagerApp from '@/components/apps/TaskManagerApp';
+import ContactApp from '@/components/apps/ContactApp';
+import EducationApp from '@/components/apps/EducationApp';
+import { useWindowManager } from '@/context/WindowManagerContext';
+import { useDesktopSettings } from '@/context/DesktopSettingsContext';
+import MusicWidget from '@/components/widgets/MusicWidget';
+import WorldClockWidget from '@/components/widgets/WorldClockWidget';
+import StickyNotesWidget from '@/components/widgets/StickyNotesWidget';
+import ProjectsApp from '@/components/apps/ProjectsApp';
+import PhotoViewerApp from '@/components/apps/PhotoViewerApp';
+import AboutMeApp from '@/components/apps/AboutMeApp';
+import WorkExperienceApp from '@/components/apps/WorkExperienceApp';
+import CVApp from '@/components/apps/CVApp';
+import ReadingListApp from '@/components/apps/ReadingListApp';
+import GameBacklogApp from '@/components/apps/GameBacklogApp';
+import WatchListApp from '@/components/apps/WatchListApp';
+import MessagesApp from '@/components/apps/MessagesApp';
+
+
+function renderAppContent(id: string) {
+  switch (id) {
+    case 'settings':
+      return <SettingsApp />;
+    case 'tasks':
+      return <TaskManagerApp />;
+    case 'contact':
+      return <ContactApp />;
+    case 'education':
+      return <EducationApp />;
+    case 'projects':
+      return <ProjectsApp />;
+    case 'photos':
+      return <PhotoViewerApp />;
+    case 'about':
+      return <AboutMeApp />;
+    case 'work':
+      return <WorkExperienceApp />;
+    case 'cv':
+      return <CVApp />;
+    case 'reading':
+      return <ReadingListApp />;
+    case 'games':
+      return <GameBacklogApp />;  
+    case 'shows':
+      return <WatchListApp />;
+    case 'messages':
+      return <MessagesApp />;
+    default:
+      return <p>Content coming soon.</p>;
+  }
+}
+
+// per-app window widths — apps not listed here fall back to AppWindow's default (384px)
+const windowWidths: Record<string, number> = {
+  education: 560,
+  projects: 600,  
+  work: 600,
+  reading: 650,
+  games: 700,
+  messages: 600,
+  shows: 800,
+};
 
 export default function Home() {
+  const { openWindows, closeWindow, focusWindow, minimizeWindow } = useWindowManager();
+  const { currentWallpaper, crtEffect } = useDesktopSettings();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="relative w-screen h-screen overflow-hidden">
+      {/* wallpaper layer — sits behind everything else */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            currentWallpaper.type === 'color'
+              ? currentWallpaper.css
+              : `url(${currentWallpaper.src}) center/cover no-repeat`,
+        }}
+      />
+
+      {/* desktop icons */}
+      <DesktopShortcuts />
+
+      {/* open windows */}
+      {openWindows
+        .filter((win) => !win.minimized)
+        .map((win) => (
+          <AppWindow
+            key={win.id}
+            title={win.title}
+            zIndex={win.zIndex}
+            width={windowWidths[win.id]}
+            onClose={() => closeWindow(win.id)}
+            onFocus={() => focusWindow(win.id)}
+            onMinimize={() => minimizeWindow(win.id)}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            {renderAppContent(win.id)}
+          </AppWindow>
+        ))}
+
+      {/* taskbar */}
+      <Taskbar openWindows={openWindows} onWindowClick={focusWindow} />
+
+      {/* widgets */}
+      <MusicWidget />
+      <WorldClockWidget />
+      <StickyNotesWidget />
+
+      {/* CRT effect overlay */}
+       {crtEffect && <CrtOverlay />}
+    </main>
   );
 }
