@@ -1,5 +1,6 @@
 // app/page.tsx
 'use client';
+import { Analytics } from "@vercel/analytics/next"
 import CrtOverlay from '@/components/effects/CrtOverlay';
 import Taskbar from '@/components/taskbar/Taskbar';
 import AppWindow from '@/components/windows/AppWindow';
@@ -115,6 +116,9 @@ export default function Home() {
 
       {/* CRT effect overlay */}
        {crtEffect && <CrtOverlay />}
+
+      {/* Vercel Analytics */}
+      <Analytics /> 
     </main>
   );
 }
