@@ -12,7 +12,7 @@ const wallpapers: Wallpaper[] = [
   { id: 'akihabara', name: 'Akihabara', type: 'image', src: '/wallpapers/Akihabara.png' },
   { id: 'city', name: 'City', type: 'image', src: '/wallpapers/city.jpg' },
   { id: 'frutiger-aero', name: 'Frutiger Aero', type: 'image', src: '/wallpapers/Frutiger-Aero.png' },
-  { id: 'night', name: 'Night', type: 'image', src: '/wallpapers/night.png' },
+  { id: 'night', name: 'Night', type: 'image', src: '/wallpapers/Night.png' },
 ];
 
 interface DesktopSettingsContextType {
