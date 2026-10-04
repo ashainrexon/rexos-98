@@ -52,7 +52,7 @@ const categories: Category[] = [
         name: 'Zoom 75 Mechanical Keyboard',
         description:
           'A custom mechanical keyboard built with a Zoom 75 PCB, featuring a compact layout and hot-swappable switches. The keyboard is designed for both aesthetics and functionality, with customizable keycaps and RGB lighting. All started because my q button did not work on my laptop and I fell into the rabbit hole of bad financial decisions known as the Mechanical Keyboard hobby. I wish to build more boards in the future but what am I going to do with all of them? It does not matter, its fun.',
-        images: ['/projects/zoom-75-1.jpg', '/projects/zoom-75-2.jpg'],
+        images: ['/projects/front-kbd.jpg', '/projects/back-kbd.jpg', '/projects/screen-kbd.jpg'],
         tech: ['Mechanical Keyboard', 'Zoom 75 PCB', 'Hot-Swappable Switches'],
       },
     ],    
