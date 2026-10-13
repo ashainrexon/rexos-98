@@ -9,6 +9,7 @@ interface AppWindowProps {
   onMinimize: () => void;
   zIndex: number;
   width?: number;
+  constraintsRef?: React.RefObject<HTMLDivElement | null>; //Added
   children: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export default function AppWindow({
   onMinimize,
   zIndex,
   width = 384, // default, matches the old fixed w-96
+  constraintsRef, //Added
   children,
 }: AppWindowProps) {
   const dragControls = useDragControls();
@@ -29,6 +31,8 @@ export default function AppWindow({
       dragControls={dragControls}
       dragListener={false}
       dragMomentum={false}
+      dragConstraints={constraintsRef} //Added
+      dragElastic={0}  //Added 
       onMouseDown={onFocus}
       initial={{ x: 100, y: 100 }}
       className="window absolute"

@@ -1,5 +1,6 @@
 // app/page.tsx
 'use client';
+import { useRef } from 'react'; // Added
 import { Analytics } from "@vercel/analytics/next"
 import CrtOverlay from '@/components/effects/CrtOverlay';
 import Taskbar from '@/components/taskbar/Taskbar';
@@ -72,11 +73,13 @@ const windowWidths: Record<string, number> = {
 export default function Home() {
   const { openWindows, closeWindow, focusWindow, minimizeWindow } = useWindowManager();
   const { currentWallpaper, crtEffect } = useDesktopSettings();
+  const constraintsRef = useRef<HTMLDivElement>(null); // Added
 
   return (
     <main className="relative w-screen h-screen overflow-hidden">
       {/* wallpaper layer — sits behind everything else */}
       <div
+        ref={constraintsRef} // Added
         className="absolute inset-0 -z-10"
         style={{
           background:
@@ -98,6 +101,7 @@ export default function Home() {
             title={win.title}
             zIndex={win.zIndex}
             width={windowWidths[win.id]}
+            constraintsRef={constraintsRef} // Added
             onClose={() => closeWindow(win.id)}
             onFocus={() => focusWindow(win.id)}
             onMinimize={() => minimizeWindow(win.id)}

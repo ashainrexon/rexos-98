@@ -15,7 +15,7 @@ export default function Taskbar({ openWindows, onWindowClick }: TaskbarProps) {
   const [startOpen, setStartOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-10 flex items-center px-1 gap-1 z-50"
+    <div className="fixed bottom-0 left-0 w-full h-10 flex items-center px-1 gap-1 z-5000"
          style={{ background: '#c0c0c0', borderTop: '2px solid #dfdfdf' }}>
       
       {/* Start button */}
