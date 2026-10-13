@@ -36,3 +36,4 @@ The project combines my interests in **physics, astronomy, software development,
 - A start up screen
 - Guest Book
 - Parody Assistant
+- Mobile Compatibility
