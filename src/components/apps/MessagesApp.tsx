@@ -38,13 +38,13 @@ const profiles: Record<Sender, Profile> = {
     joined: 'Joined the server: always',
   },
   rex: {
-    name: 'Rex',
-    tag: '@rex-bot',
-    photo: '/profiles/rex.jpg',
+    name: 'Cathy ♡',
+    tag: '@cathy.afterrain',
+    photo: '/profiles/cathy.jfif',
     color: '#57c98a',
     banner: 'linear-gradient(135deg, #0f3d2a, #2e8b57)',
-    about: "RexOS 98's resident guide. I know where everything is hidden.",
-    badges: ['🤖 Site Mascot', '📌 Verified Guide'],
+    about: "🌧️ maybe things will make sense someday",
+    badges: ['🎧 Music Lover', '🌧️ Daydreamer'],
     joined: 'Joined the server: since boot',
   },
 };
